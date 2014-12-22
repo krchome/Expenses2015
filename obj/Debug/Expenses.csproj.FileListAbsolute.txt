@@ -103,5 +103,6 @@ B:\Projects\Web Project\Expenses\Expenses\bin\ko\System.Spatial.resources.dll
 B:\Projects\Web Project\Expenses\Expenses\bin\ru\System.Spatial.resources.dll
 B:\Projects\Web Project\Expenses\Expenses\bin\zh-Hans\System.Spatial.resources.dll
 B:\Projects\Web Project\Expenses\Expenses\bin\zh-Hant\System.Spatial.resources.dll
+B:\Projects\Web Project\Expenses\Expenses\obj\Debug\Expenses.csprojResolveAssemblyReference.cache
 B:\Projects\Web Project\Expenses\Expenses\obj\Debug\Expenses.dll
 B:\Projects\Web Project\Expenses\Expenses\obj\Debug\Expenses.pdb
