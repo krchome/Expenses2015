@@ -74,7 +74,7 @@
     <%--</head>
     <body>--%>
     <div>
-        <ajaxToolkit:TabContainer ID="TabContainer1" runat="server" CssClass="MyTabStyle" ActiveTabIndex="3">
+        <ajaxToolkit:TabContainer ID="TabContainer1" runat="server" CssClass="MyTabStyle" ActiveTabIndex="0">
             <ajaxToolkit:TabPanel ID="TabPanel1" runat="server" HeaderText="Insurance">
                 <ContentTemplate>
                    <table>
