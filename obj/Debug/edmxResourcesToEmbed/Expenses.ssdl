@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ExpensesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Insurance">
+    <Key>
+      <PropertyRef Name="InsurnaceId" />
+    </Key>
+    <Property Name="InsurnaceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="InsuranceType">
+    <Key>
+      <PropertyRef Name="InsuranceTypeId" />
+    </Key>
+    <Property Name="InsuranceTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InsuranceId" Type="int" Nullable="false" />
+    <Property Name="ReferenceNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="Premium" Type="smallmoney" />
+    <Property Name="PaymentDate" Type="date" />
+  </EntityType>
+  <EntityType Name="Maintenance">
+    <Key>
+      <PropertyRef Name="MaintenanceId" />
+    </Key>
+    <Property Name="MaintenanceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="MaintenanceHistory">
+    <Key>
+      <PropertyRef Name="TypeId" />
+    </Key>
+    <Property Name="TypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaintenanceId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="Amount" Type="smallmoney" />
+    <Property Name="Provider" Type="nvarchar" MaxLength="50" />
+    <Property Name="Comments" Type="nvarchar" MaxLength="500" />
+    <Property Name="DateDone" Type="date" />
+  </EntityType>
+  <EntityType Name="Resources">
+    <Key>
+      <PropertyRef Name="ResourceId" />
+    </Key>
+    <Property Name="ResourceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ResourceTypeDescription" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="ResourceType">
+    <Key>
+      <PropertyRef Name="ResourceTypeId" />
+    </Key>
+    <Property Name="ResourceTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ResourceId" Type="int" Nullable="false" />
+    <Property Name="ReferenceNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="InvoiceAmount" Type="smallmoney" />
+    <Property Name="InvoiceDate" Type="date" />
+    <Property Name="Bank" Type="nvarchar" MaxLength="15" />
+    <Property Name="PaymentMethod" Type="nvarchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_InsuranceType_Insurance">
+    <End Role="Insurance" Type="Self.Insurance" Multiplicity="1" />
+    <End Role="InsuranceType" Type="Self.InsuranceType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Insurance">
+        <PropertyRef Name="InsurnaceId" />
+      </Principal>
+      <Dependent Role="InsuranceType">
+        <PropertyRef Name="InsuranceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MaintenanceHistory_Maintenance">
+    <End Role="Maintenance" Type="Self.Maintenance" Multiplicity="1" />
+    <End Role="MaintenanceHistory" Type="Self.MaintenanceHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Maintenance">
+        <PropertyRef Name="MaintenanceId" />
+      </Principal>
+      <Dependent Role="MaintenanceHistory">
+        <PropertyRef Name="MaintenanceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ResourceType_Resources">
+    <End Role="Resources" Type="Self.Resources" Multiplicity="1" />
+    <End Role="ResourceType" Type="Self.ResourceType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Resources">
+        <PropertyRef Name="ResourceId" />
+      </Principal>
+      <Dependent Role="ResourceType">
+        <PropertyRef Name="ResourceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="spGetInsuranceDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="InsuranceId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spGetResourceDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ResourceId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spInsuranceDetailsInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="InsuranceTypeId" Type="int" Mode="In" />
+    <Parameter Name="InsuranceId" Type="int" Mode="In" />
+    <Parameter Name="ReferenceNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="Premium" Type="smallmoney" Mode="In" />
+    <Parameter Name="PaymentDate" Type="date" Mode="In" />
+  </Function>
+  <Function Name="spResourcesDetailsInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ResourceTypeId" Type="int" Mode="In" />
+    <Parameter Name="ResourceId" Type="int" Mode="In" />
+    <Parameter Name="ReferenceNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="InvoiceAmount" Type="smallmoney" Mode="In" />
+    <Parameter Name="InvoiceDate" Type="date" Mode="In" />
+    <Parameter Name="Bank" Type="nvarchar" Mode="In" />
+    <Parameter Name="PaymentMethod" Type="nvarchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="ExpensesModelStoreContainer">
+    <EntitySet Name="Insurance" EntityType="Self.Insurance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InsuranceType" EntityType="Self.InsuranceType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Maintenance" EntityType="Self.Maintenance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MaintenanceHistory" EntityType="Self.MaintenanceHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Resources" EntityType="Self.Resources" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ResourceType" EntityType="Self.ResourceType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_InsuranceType_Insurance" Association="Self.FK_InsuranceType_Insurance">
+      <End Role="Insurance" EntitySet="Insurance" />
+      <End Role="InsuranceType" EntitySet="InsuranceType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MaintenanceHistory_Maintenance" Association="Self.FK_MaintenanceHistory_Maintenance">
+      <End Role="Maintenance" EntitySet="Maintenance" />
+      <End Role="MaintenanceHistory" EntitySet="MaintenanceHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ResourceType_Resources" Association="Self.FK_ResourceType_Resources">
+      <End Role="Resources" EntitySet="Resources" />
+      <End Role="ResourceType" EntitySet="ResourceType" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

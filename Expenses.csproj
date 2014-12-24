@@ -368,9 +368,12 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
+<<<<<<< HEAD
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+=======
+>>>>>>> 5ec1ec70befc8ef5c9d66a5d498328baf722c8b3
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
@@ -388,9 +391,12 @@
           <CustomServerUrl>
           </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+<<<<<<< HEAD
           <servers defaultServer="SelfHostServer">
             <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:4686/" workingDir="" />
           </servers>
+=======
+>>>>>>> 5ec1ec70befc8ef5c9d66a5d498328baf722c8b3
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
