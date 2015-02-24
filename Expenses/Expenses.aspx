@@ -863,7 +863,7 @@
                         </tr>
                    </table>
 
-                    <!-- Now the display insurance grid view -->
+                    <!-- Now the display maintenance grid view -->
                   
                     <table>
                     <tr>
@@ -907,13 +907,13 @@
                             <td colspan="5">
                                     <asp:GridView ID="GridViewMaintenanceSearches" runat="server" CssClass="table table-hover table-striped" AutoGenerateColumns="False" BorderColor="WhiteSmoke" BorderWidth="0px" Style="margin: 0 auto;">
                                         <Columns>
-                                            <asp:BoundField DataField="WorkDescription" HeaderText="Insurance Type Description" ReadOnly="True" />
-                                            <asp:BoundField DataField="InvoiceAmount" HeaderText="Customer No" ReadOnly="True" />
-                                            <asp:BoundField DataField="InvoiceDetails" HeaderText="Policy No" ReadOnly="True" />
-                                            <asp:BoundField DataField="Provider" HeaderText="Policy Type" ReadOnly="True" />
+                                            <asp:BoundField DataField="WorkDescription" HeaderText="Work Description" ReadOnly="True" />
+                                            <asp:BoundField DataField="InvoiceAmount" HeaderText="Invoice Amount" ReadOnly="True" />
+                                            <asp:BoundField DataField="InvoiceDetails" HeaderText="Invoice Details" ReadOnly="True" />
+                                            <asp:BoundField DataField="Provider" HeaderText="Provider Address" ReadOnly="True" />
                                             <asp:BoundField DataField="Comments" HeaderText="Comments" ReadOnly="True" />
-                                            <asp:BoundField DataField="DateDone" HeaderText="Comments" ReadOnly="True" /> 
-                                            <asp:BoundField DataField="NextDue" HeaderText="Comments" ReadOnly="True" />      
+                                            <asp:BoundField DataField="DateDone" HeaderText="Done on" ReadOnly="True" /> 
+                                            <asp:BoundField DataField="NextDue" HeaderText="Due on" ReadOnly="True" />      
                                         </Columns>
                                         <HeaderStyle HorizontalAlign="Left" />
                                     </asp:GridView>

@@ -161,7 +161,7 @@ namespace Expenses
                              paymentMethod = rbPaymentMethodMedicalInsurance.SelectedItem.Text;
                              Bank = rbPayeeBankMedicalInsurance.SelectedItem.Text;
                              Comments = tbCommentsMedicalInsurance.Text;
-                             InsertInsurance(insuranceTypeID, cmdCaseInsert);
+                             //InsertInsurance(insuranceTypeID, cmdCaseInsert); uncomment this line and uncomment InsertInsurance(int insuranceTypeID, SqlCommand cmdCaseInsert) method if it doesnt inserts
 
                         break;
                     case 2://Life
@@ -179,7 +179,7 @@ namespace Expenses
                              paymentMethod = rbPaymentMethodLifeInsurance.SelectedItem.Text;
                              Bank = rbPayeeBankLifeInsurance.SelectedItem.Text;
                              Comments = tbCommentsLifeInsurance.Text;
-                             InsertInsurance(insuranceTypeID, cmdCaseInsert);
+                             //InsertInsurance(insuranceTypeID, cmdCaseInsert); uncomment this line and uncomment InsertInsurance(int insuranceTypeID, SqlCommand cmdCaseInsert) method if it doesnt inserts
                         break;
                     case 3://Car
                             CustomerNo = tbCarInsuranceCustomerNo.Text;
@@ -196,7 +196,7 @@ namespace Expenses
                              paymentMethod = rbPaymentMethodCarInsurance.SelectedItem.Text;
                              Bank = rbPayeeBankCarInsurance.SelectedItem.Text;
                              Comments = tbCommentsCarInsurance.Text;
-                             InsertInsurance(insuranceTypeID, cmdCaseInsert);
+                             //InsertInsurance(insuranceTypeID, cmdCaseInsert); uncomment this line and uncomment InsertInsurance(int insuranceTypeID, SqlCommand cmdCaseInsert) method if it doesnt inserts
                         break;
                     case 4://House 
                             CustomerNo = tbHouseInsuranceCustomerNo.Text;
@@ -213,7 +213,7 @@ namespace Expenses
                             paymentMethod = rbPaymentMethodHouseInsurance.SelectedItem.Text;
                             Bank = rbPayeeBankHouseInsurance.SelectedItem.Text;
                             Comments = tbCommentsHouseInsurance.Text;
-                            InsertInsurance(insuranceTypeID, cmdCaseInsert);
+                            // InsertInsurance(insuranceTypeID, cmdCaseInsert); uncomment this line and uncomment InsertInsurance(int insuranceTypeID, SqlCommand cmdCaseInsert) method if it doesnt inserts
                             break;
                     case 5://Content 
                             CustomerNo = tbContentInsuranceCustomerNo.Text;
@@ -230,39 +230,56 @@ namespace Expenses
                             paymentMethod = rbPaymentMethodContentInsurance.SelectedItem.Text;
                             Bank = rbPayeeBankContentInsurance.SelectedItem.Text;
                             Comments = tbCommentsContentInsurance.Text;
-                            InsertInsurance(insuranceTypeID, cmdCaseInsert);
+                            // InsertInsurance(insuranceTypeID, cmdCaseInsert); uncomment this line and uncomment InsertInsurance(int insuranceTypeID, SqlCommand cmdCaseInsert) method if it doesnt inserts
                         break;
                     default:
                         break;
                 }
+
+                cmdCaseInsert.Parameters.AddWithValue("InsuranceTypeId", insuranceTypeID);
+                cmdCaseInsert.Parameters.AddWithValue("CustomerNo", String.IsNullOrEmpty(CustomerNo) ? String.Empty : CustomerNo);
+                cmdCaseInsert.Parameters.AddWithValue("PolicyNo", String.IsNullOrEmpty(PolicyNo) ? String.Empty : PolicyNo);
+                cmdCaseInsert.Parameters.AddWithValue("PolicyType", String.IsNullOrEmpty(PolicyType) ? String.Empty : PolicyType);
+                cmdCaseInsert.Parameters.AddWithValue("StartDate", String.IsNullOrEmpty(StartDate.ToString()) ? (object)DBNull.Value : (StartDate));
+                cmdCaseInsert.Parameters.AddWithValue("ExpiryDate", String.IsNullOrEmpty(ExpiryDate.ToString()) ? (object)DBNull.Value : (ExpiryDate));
+                cmdCaseInsert.Parameters.AddWithValue("InsuredName", String.IsNullOrEmpty(InsuredName) ? String.Empty : InsuredName);
+                cmdCaseInsert.Parameters.AddWithValue("PremiumAmount", String.IsNullOrEmpty(Premium) ? String.Empty : Premium);
+                cmdCaseInsert.Parameters.AddWithValue("PaymentType", String.IsNullOrEmpty(PaymentType) ? String.Empty : PaymentType);
+                cmdCaseInsert.Parameters.AddWithValue("PaymentMethod", String.IsNullOrEmpty(paymentMethod) ? String.Empty : paymentMethod);
+                cmdCaseInsert.Parameters.AddWithValue("Bank", String.IsNullOrEmpty(Bank) ? String.Empty : Bank);
+                cmdCaseInsert.Parameters.AddWithValue("Comments", String.IsNullOrEmpty(Comments) ? String.Empty : Comments);
+                cmdCaseInsert.Parameters.Add("InsuranceId", SqlDbType.Int);
+                cmdCaseInsert.Parameters["InsuranceId"].Direction = ParameterDirection.Output;
+                cmdCaseInsert.ExecuteNonQuery();
+
                 lblSaveInsurance.Text = "Saved to database successfully!";
 
                 cn.Close();
-
+                
                 // return Convert.ToInt32(cmdCaseInsert.Parameters["ResourceId"].Value.ToString());
 
             }
 
         }
-
-        private void InsertInsurance(int insuranceTypeID, SqlCommand cmdCaseInsert)
-        {
-            cmdCaseInsert.Parameters.AddWithValue("InsuranceTypeId", insuranceTypeID);
-            cmdCaseInsert.Parameters.AddWithValue("CustomerNo", String.IsNullOrEmpty(CustomerNo) ? String.Empty : CustomerNo);
-            cmdCaseInsert.Parameters.AddWithValue("PolicyNo", String.IsNullOrEmpty(PolicyNo) ? String.Empty : PolicyNo);
-            cmdCaseInsert.Parameters.AddWithValue("PolicyType", String.IsNullOrEmpty(PolicyType) ? String.Empty : PolicyType);
-            cmdCaseInsert.Parameters.AddWithValue("StartDate", String.IsNullOrEmpty(StartDate.ToString()) ? (object)DBNull.Value : (StartDate));
-            cmdCaseInsert.Parameters.AddWithValue("ExpiryDate", String.IsNullOrEmpty(ExpiryDate.ToString()) ? (object)DBNull.Value : (ExpiryDate));
-            cmdCaseInsert.Parameters.AddWithValue("InsuredName", String.IsNullOrEmpty(InsuredName) ? String.Empty : InsuredName);
-            cmdCaseInsert.Parameters.AddWithValue("PremiumAmount", String.IsNullOrEmpty(Premium) ? String.Empty : Premium);
-            cmdCaseInsert.Parameters.AddWithValue("PaymentType", String.IsNullOrEmpty(PaymentType) ? String.Empty : PaymentType);
-            cmdCaseInsert.Parameters.AddWithValue("PaymentMethod", String.IsNullOrEmpty(paymentMethod) ? String.Empty : paymentMethod);
-            cmdCaseInsert.Parameters.AddWithValue("Bank", String.IsNullOrEmpty(Bank) ? String.Empty : Bank);
-            cmdCaseInsert.Parameters.AddWithValue("Comments", String.IsNullOrEmpty(Comments) ? String.Empty : Comments);
-            cmdCaseInsert.Parameters.Add("InsuranceId", SqlDbType.Int);
-            cmdCaseInsert.Parameters["InsuranceId"].Direction = ParameterDirection.Output;
-            cmdCaseInsert.ExecuteNonQuery();
-        }
+        // Uncomment the following method if existing code for insert doesn't work
+        //private void InsertInsurance(int insuranceTypeID, SqlCommand cmdCaseInsert)
+        //{
+        //    cmdCaseInsert.Parameters.AddWithValue("InsuranceTypeId", insuranceTypeID);
+        //    cmdCaseInsert.Parameters.AddWithValue("CustomerNo", String.IsNullOrEmpty(CustomerNo) ? String.Empty : CustomerNo);
+        //    cmdCaseInsert.Parameters.AddWithValue("PolicyNo", String.IsNullOrEmpty(PolicyNo) ? String.Empty : PolicyNo);
+        //    cmdCaseInsert.Parameters.AddWithValue("PolicyType", String.IsNullOrEmpty(PolicyType) ? String.Empty : PolicyType);
+        //    cmdCaseInsert.Parameters.AddWithValue("StartDate", String.IsNullOrEmpty(StartDate.ToString()) ? (object)DBNull.Value : (StartDate));
+        //    cmdCaseInsert.Parameters.AddWithValue("ExpiryDate", String.IsNullOrEmpty(ExpiryDate.ToString()) ? (object)DBNull.Value : (ExpiryDate));
+        //    cmdCaseInsert.Parameters.AddWithValue("InsuredName", String.IsNullOrEmpty(InsuredName) ? String.Empty : InsuredName);
+        //    cmdCaseInsert.Parameters.AddWithValue("PremiumAmount", String.IsNullOrEmpty(Premium) ? String.Empty : Premium);
+        //    cmdCaseInsert.Parameters.AddWithValue("PaymentType", String.IsNullOrEmpty(PaymentType) ? String.Empty : PaymentType);
+        //    cmdCaseInsert.Parameters.AddWithValue("PaymentMethod", String.IsNullOrEmpty(paymentMethod) ? String.Empty : paymentMethod);
+        //    cmdCaseInsert.Parameters.AddWithValue("Bank", String.IsNullOrEmpty(Bank) ? String.Empty : Bank);
+        //    cmdCaseInsert.Parameters.AddWithValue("Comments", String.IsNullOrEmpty(Comments) ? String.Empty : Comments);
+        //    cmdCaseInsert.Parameters.Add("InsuranceId", SqlDbType.Int);
+        //    cmdCaseInsert.Parameters["InsuranceId"].Direction = ParameterDirection.Output;
+        //    cmdCaseInsert.ExecuteNonQuery();
+        //}
 
         // now insert maintenance 
         private void InsertMaintenance(int maintenancetypeID)
